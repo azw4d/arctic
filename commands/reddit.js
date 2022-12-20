@@ -1,8 +1,10 @@
+// Requirements.
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 import("isomorphic-fetch");
 import("cross-fetch/dist/node-polyfill.js");
 
+// Command information.
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("reddit")
@@ -20,6 +22,8 @@ module.exports = {
         const res = await fetch(
           `https://www.reddit.com/search.json?q=${value}`
         );
+        
+        // Define the constants.
         const user = await res.json();
         const subreddit = user.data.children[0].data.subreddit_name_prefixed;
         const author = user.data.children[0].data.author;
@@ -39,8 +43,9 @@ module.exports = {
           .setThumbnail(`${img}`)
           .setFooter(`👍: ${ups} | 👎: ${downs}`, "");
 
-        console.log("hiii");
         await interaction.editReply({ embeds: [appEmbed] });
+        
+        // Catch any errors.
       } catch (err) {
         await interaction.editReply("Unable to find anything for your query.");
         console.error(err);
