@@ -20,6 +20,8 @@ module.exports = {
   async execute(interaction) {
     const value = interaction.options.getString("search");
     await interaction.deferReply();
+    
+    // (Make sure to add your OMDB API key in the .env file)
     const apikey = process.env.omdbapikey;
 
     // Execute.
